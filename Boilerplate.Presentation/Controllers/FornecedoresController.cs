@@ -5,22 +5,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Boilerplate.Core.Models;
 using Boilerplate.Infra.Context;
+using Boilerplate.Application.Services;
 
 namespace Boilerplate.Presentation.Controllers
 {
     public class FornecedoresController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly FornecedorService _service;
 
-        public FornecedoresController(AppDbContext context)
+        public FornecedoresController(AppDbContext context, FornecedorService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: Fornecedores
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Fornecedor.ToListAsync());
+            return View(await _service.GetFornecedoresAsync()); //_context.Fornecedor.ToListAsync());
         }
 
         // GET: Fornecedores/Details/5

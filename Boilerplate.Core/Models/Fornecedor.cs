@@ -18,5 +18,14 @@ namespace Boilerplate.Core.Models
         {
             ValidateModel(this, new FornecedorModelValidation());
         }
+
+        public Fornecedor(Guid id, string link, string logo, bool mantemHistorico, string nome, EVertical vertical)
+        {
+            Id = id;
+            Link = link;
+            Logo = logo;
+            MantemHistorico = mantemHistorico;
+            Nome = nome;
+        }
     }
 }
