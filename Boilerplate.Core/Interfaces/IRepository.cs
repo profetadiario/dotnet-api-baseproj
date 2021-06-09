@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Boilerplate.Core.Bases;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Boilerplate.Core.Interfaces
         Task<TEntity> GetByIdAsync(Guid id);
         Task<IEnumerable<TEntity>> FilterAsync();
         Task<IEnumerable<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<IEnumerable<TEntity>> FilterPaginateAsync(int pageNumber, int pageRange);
+        Task<EntityList<TEntity>> FilterPaginateAsync(int pageNumber, int pageRange);
         Task DeleteRangeAsync();
         Task SaveChangesAsync();
     }

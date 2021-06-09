@@ -6,5 +6,6 @@ namespace Boilerplate.Infra.Repository
 {
     class FornecedorRepository
     {
+
     }
 }
