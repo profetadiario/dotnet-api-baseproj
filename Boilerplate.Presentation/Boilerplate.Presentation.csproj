@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Boilerplate.Application\Boilerplate.Application.csproj" />
+    <ProjectReference Include="..\Boilerplate.Core\Boilerplate.Core.csproj" />
+    <ProjectReference Include="..\boilerplate.infrastructure\Boilerplate.Infra.csproj" />
+  </ItemGroup>
+
 </Project>

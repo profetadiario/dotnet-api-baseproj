@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Boilerplate.Infra.Repository
 {
-    class FornecedorRepository
+    public class FornecedorRepository
     {
 
     }
