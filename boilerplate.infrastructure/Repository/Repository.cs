@@ -1,6 +1,6 @@
 ﻿using Boilerplate.Core.Bases;
 using Boilerplate.Core.Interfaces;
-using Boilerplate.Presentation.Data;
+using Boilerplate.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

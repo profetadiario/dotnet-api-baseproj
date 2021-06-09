@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Boilerplate.Presentation.Data
+namespace Boilerplate.Infra.Context
 {
     public class AppDbContext : IdentityDbContext
     {
