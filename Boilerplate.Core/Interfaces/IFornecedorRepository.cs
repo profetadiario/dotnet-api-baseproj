@@ -7,5 +7,6 @@ namespace Boilerplate.Core.Interfaces
 {
     public interface IFornecedorRepository : IRepository<Fornecedor>
     {
+
     }
 }

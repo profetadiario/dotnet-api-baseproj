@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\boilerplate.infrastructure\Boilerplate.Infra.csproj" />
+    <ProjectReference Include="..\Boilerplate.Core\Boilerplate.Core.csproj" />
   </ItemGroup>
 
 </Project>

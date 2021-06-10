@@ -1,6 +1,7 @@
 using Boilerplate.Core.Interfaces;
 using Boilerplate.Infra.Context;
 using Boilerplate.Infra.Repository;
+using Boilerplate.Application.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Boilerplate.Application.Services;
+using Boilerplate.Infra.Bootstrapper;
 
 namespace Boilerplate.Presentation
 {
@@ -24,7 +27,8 @@ namespace Boilerplate.Presentation
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            //services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AutoMapperActive();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));

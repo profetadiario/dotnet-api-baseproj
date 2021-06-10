@@ -1,4 +1,5 @@
 ﻿using Boilerplate.Application.Interfaces;
+using Boilerplate.Application.ViewModel.Entities;
 using Boilerplate.Core.Interfaces;
 using Boilerplate.Core.Models;
 using System;
@@ -16,17 +17,17 @@ namespace Boilerplate.Application.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Fornecedor>> GetFornecedoresAsync()
+        public async Task<IEnumerable<FornecedorViewModel>> GetFornecedoresAsync()
         {
             return await _repository.FilterAsync();
         }
 
-        public async Task<IEnumerable<Fornecedor>> GetFornecedorByIdAsync(Guid id)
+        public async Task<IEnumerable<FornecedorViewModel>> GetFornecedorByIdAsync(Guid id)
         {
             return await _repository.FilterAsync(x=>x.Id == id);
         }
 
-        public async Task<Fornecedor> CreateFornecedorAsync(Fornecedor view)
+        public async Task<FornecedorViewModel> CreateFornecedorAsync(FornecedorViewModel view)
         {
             try
             {
@@ -45,7 +46,7 @@ namespace Boilerplate.Application.Services
             }
         }
 
-        public async Task<Fornecedor> UpdateFornecedorAsync(Fornecedor view)
+        public async Task<FornecedorViewModel> UpdateFornecedorAsync(FornecedorViewModel view)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace Boilerplate.Application.Services
             }
         }
 
-        public async Task<Fornecedor> DeleteFornecedorAsync(Fornecedor view)
+        public async Task<FornecedorViewModel> DeleteFornecedorAsync(FornecedorViewModel view)
         {
             try
             {
@@ -83,21 +84,21 @@ namespace Boilerplate.Application.Services
             }
         }
 
-        private Task CreateViewModel(Fornecedor view)
+        private Task CreateViewModel(FornecedorViewModel view)
         {
             return _repository.CreateAsync(view);
         }
 
-        private Task UpdateViewModel(Fornecedor view)
+        private Task UpdateViewModel(FornecedorViewModel view)
         {
             return _repository.UpdateAsync(view);
         }
-        private Task DeleteViewModel(Fornecedor view)
+        private Task DeleteViewModel(FornecedorViewModel view)
         {
             return _repository.DeleteAsync(view);
         }
 
-        private bool ValidarView(Fornecedor view)
+        private bool ValidarView(FornecedorViewModel view)
         {
             if (view == null)
                 return false;
