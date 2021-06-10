@@ -3,6 +3,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Boilerplate.Application.ViewModel.Mappers;
 
 namespace Boilerplate.Infra.Bootstrapper
 {
@@ -14,8 +15,8 @@ namespace Boilerplate.Infra.Bootstrapper
                 .AddSingleton(
                 new MapperConfiguration(config =>
                 {
-                    //config.AddProfile(new TransformationViewAnModel());
-                    //config.AddProfile(new TransformationModelAnView());
+                    config.AddProfile(new TransformationViewAnModel());
+                    config.AddProfile(new TransformationModelAnView());
                 })
                 .CreateMapper());
         }

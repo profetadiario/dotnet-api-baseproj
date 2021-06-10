@@ -84,21 +84,21 @@ namespace Boilerplate.Application.Services
             }
         }
 
-        private Task CreateViewModel(FornecedorViewModel view)
+        public Task CreateViewModel(FornecedorViewModel view)
         {
             return _repository.CreateAsync(view);
         }
 
-        private Task UpdateViewModel(FornecedorViewModel view)
+        public Task UpdateViewModel(FornecedorViewModel view)
         {
             return _repository.UpdateAsync(view);
         }
-        private Task DeleteViewModel(FornecedorViewModel view)
+        public Task DeleteViewModel(FornecedorViewModel view)
         {
             return _repository.DeleteAsync(view);
         }
 
-        private bool ValidarView(FornecedorViewModel view)
+        public bool ValidarView(FornecedorViewModel view)
         {
             if (view == null)
                 return false;
