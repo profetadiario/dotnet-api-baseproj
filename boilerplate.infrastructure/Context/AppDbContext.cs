@@ -1,9 +1,6 @@
 ﻿using Boilerplate.Core.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Boilerplate.Infra.Context
 {
@@ -15,5 +12,5 @@ namespace Boilerplate.Infra.Context
         }
 
         public DbSet<Fornecedor> Fornecedor { get; set; }
-    }
+    } 
 }
