@@ -23,26 +23,33 @@ namespace Boilerplate.Presentation.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnName("LINK")
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("MantemHistorico")
-                        .HasColumnType("bit");
+                        .HasColumnName("HAS_HISTORICO")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnName("NOME")
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("Vertical")
+                        .HasColumnName("VERTICAL")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fornecedor");
+                    b.ToTable("TBL_FORNECEDOR");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

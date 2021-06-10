@@ -16,9 +16,8 @@ namespace Boilerplate.Infra.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<FornecedorMapConfig>();
             builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-            //base.OnModelCreating(builder);
+            base.OnModelCreating(builder);
         }
     } 
 }
