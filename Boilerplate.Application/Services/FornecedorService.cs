@@ -1,4 +1,5 @@
-﻿using Boilerplate.Application.Interfaces;
+﻿using AutoMapper;
+using Boilerplate.Application.Interfaces;
 using Boilerplate.Application.ViewModel.Entities;
 using Boilerplate.Core.Interfaces;
 using Boilerplate.Core.Models;
@@ -11,31 +12,35 @@ namespace Boilerplate.Application.Services
     public class FornecedorService : IFornecedorService
     {
         private readonly IFornecedorRepository _repository;
+        private readonly IMapper _mapper;
 
-        public FornecedorService(IFornecedorRepository repository)
+
+        public FornecedorService(IFornecedorRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<FornecedorViewModel>> GetFornecedoresAsync()
         {
-            return await _repository.FilterAsync();
+            return _mapper.Map<IEnumerable<FornecedorViewModel>>(await _repository.FilterAsync());
         }
 
         public async Task<IEnumerable<FornecedorViewModel>> GetFornecedorByIdAsync(Guid id)
         {
-            return await _repository.FilterAsync(x=>x.Id == id);
+            return _mapper.Map<IEnumerable<FornecedorViewModel>>(await _repository.FilterAsync(x=>x.Id == id));
         }
 
         public async Task<FornecedorViewModel> CreateFornecedorAsync(FornecedorViewModel view)
         {
             try
             {
+                var fornecedor = _mapper.Map<Fornecedor>(view);
                 if (ValidarView(view))
                     return view;
 
 
-                if (view.IsValid)
+                if (fornecedor.IsValid)
                     await CreateViewModel(view);
 
                 return view;
@@ -48,13 +53,14 @@ namespace Boilerplate.Application.Services
 
         public async Task<FornecedorViewModel> UpdateFornecedorAsync(FornecedorViewModel view)
         {
+            var fornecedor = _mapper.Map<Fornecedor>(view);
             try
             {
                 if (ValidarView(view))
                     return view;
 
 
-                if (view.IsValid)
+                if (fornecedor.IsValid)
                     await UpdateViewModel(view);
 
                 return view;
@@ -67,13 +73,14 @@ namespace Boilerplate.Application.Services
 
         public async Task<FornecedorViewModel> DeleteFornecedorAsync(FornecedorViewModel view)
         {
+            var fornecedor = _mapper.Map<Fornecedor>(view);
             try
             {
                 if (ValidarView(view))
                     return view;
 
 
-                if (view.IsValid)
+                if (fornecedor.IsValid)
                     await DeleteViewModel(view);
 
                 return view;
@@ -86,16 +93,22 @@ namespace Boilerplate.Application.Services
 
         public Task CreateViewModel(FornecedorViewModel view)
         {
-            return _repository.CreateAsync(view);
+            var fornecedor = _mapper.Map<Fornecedor>(view);
+
+            return _repository.CreateAsync(fornecedor);
         }
 
         public Task UpdateViewModel(FornecedorViewModel view)
         {
-            return _repository.UpdateAsync(view);
+            var fornecedor = _mapper.Map<Fornecedor>(view);
+
+            return _repository.UpdateAsync(fornecedor);
         }
         public Task DeleteViewModel(FornecedorViewModel view)
         {
-            return _repository.DeleteAsync(view);
+            var fornecedor = _mapper.Map<Fornecedor>(view);
+
+            return _repository.DeleteAsync(fornecedor);
         }
 
         public bool ValidarView(FornecedorViewModel view)

@@ -15,7 +15,6 @@ namespace Boilerplate.Infra.Bootstrapper
                 .AddSingleton(
                 new MapperConfiguration(config =>
                 {
-                    config.AddProfile(new TransformationViewAnModel());
                     config.AddProfile(new TransformationModelAnView());
                 })
                 .CreateMapper());
