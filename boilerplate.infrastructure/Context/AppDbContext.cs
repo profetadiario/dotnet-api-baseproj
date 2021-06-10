@@ -18,7 +18,7 @@ namespace Boilerplate.Infra.Context
         {
             builder.Entity<FornecedorMapConfig>();
             builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-            base.OnModelCreating(builder);
+            //base.OnModelCreating(builder);
         }
     } 
 }
