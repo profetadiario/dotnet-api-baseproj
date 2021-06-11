@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using Boilerplate.Core.Models;
 using Boilerplate.Infra.Context;
 using Boilerplate.Application.Services;
+using Boilerplate.Application.Interfaces;
+using Boilerplate.Application.ViewModel.Entities;
 
 namespace Boilerplate.Presentation.Controllers
 {
     public class FornecedoresController : Controller
     {
-        private readonly AppDbContext _context;
-        private readonly FornecedorService _service;
+        private readonly IFornecedorService _service;
 
-        public FornecedoresController(AppDbContext context, FornecedorService service)
+        public FornecedoresController(IFornecedorService service)
         {
-            _context = context;
             _service = service;
         }
 
@@ -27,21 +27,17 @@ namespace Boilerplate.Presentation.Controllers
         }
 
         // GET: Fornecedores/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(Guid id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var fornecedor = await _context.Fornecedor
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (fornecedor == null)
-            {
+            var fornecedorViewModel = await _service.GetFornecedorByIdAsync(id);
+
+            if (fornecedorViewModel == null)
                 return NotFound();
-            }
 
-            return View(fornecedor);
+            return View(fornecedorViewModel);
         }
 
         // GET: Fornecedores/Create
@@ -55,78 +51,66 @@ namespace Boilerplate.Presentation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] Fornecedor fornecedor)
+        public async Task<IActionResult> Create([Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] FornecedorViewModel fornecedorViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(fornecedor);
-                await _context.SaveChangesAsync();
+                await _service.CreateViewModel(fornecedorViewModel);
                 return RedirectToAction(nameof(Index));
             }
-            return View(fornecedor);
+            return View(fornecedorViewModel);
         }
 
         // GET: Fornecedores/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Edit(Guid id)
+        //{
+        //    if (id == null)
+        //        return NotFound();
 
-            var fornecedor = await _context.Fornecedor.FindAsync(id);
-            if (fornecedor == null)
-            {
-                return NotFound();
-            }
-            return View(fornecedor);
-        }
+
+        //    var fornecedorViewModel = await _service.(id);
+
+        //    if (fornecedor == null)
+        //        return NotFound();
+
+        //    return View(fornecedor);
+        //}
 
         // POST: Fornecedores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] Fornecedor fornecedor)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] FornecedorViewModel fornecedorViewModel)
         {
-            if (id != fornecedor.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(fornecedor);
-                    await _context.SaveChangesAsync();
+                    await _service.UpdateViewModel(fornecedorViewModel);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FornecedorExists(fornecedor.Id))
-                    {
+                    if (!FornecedorExists(fornecedorViewModel.Id))
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(fornecedor);
+            return View(fornecedorViewModel);
         }
 
         // GET: Fornecedores/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var fornecedor = await _context.Fornecedor
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var fornecedor = await _service.GetFornecedorByIdAsync(id);
+
+            await _service.DeleteViewModel(fornecedor);
+
             if (fornecedor == null)
             {
                 return NotFound();
@@ -136,19 +120,21 @@ namespace Boilerplate.Presentation.Controllers
         }
 
         // POST: Fornecedores/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var fornecedor = await _context.Fornecedor.FindAsync(id);
-            _context.Fornecedor.Remove(fornecedor);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(Guid id)
+        //{
+        //    var fornecedor = await _context.Fornecedor.FindAsync(id);
+        //    _context.Fornecedor.Remove(fornecedor);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool FornecedorExists(Guid id)
         {
-            return _context.Fornecedor.Any(e => e.Id == id);
+            var result = _service.GetFornecedorByIdAsync(id);
+
+            return result == null ? false : true;
         }
     }
 }
