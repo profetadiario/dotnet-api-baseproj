@@ -9,7 +9,7 @@ namespace Boilerplate.Application.Interfaces
     public interface IFornecedorService
     {
         Task<IEnumerable<FornecedorViewModel>> GetFornecedoresAsync();
-        Task<FornecedorViewModel> GetFornecedorByIdAsync(Guid id);
+        Task<FornecedorViewModel> GetFornecedorByIdAsync(FornecedorViewModel view);
         Task<FornecedorViewModel> CreateFornecedorAsync(FornecedorViewModel view);
         Task<FornecedorViewModel> UpdateFornecedorAsync(FornecedorViewModel view);
         Task<FornecedorViewModel> DeleteFornecedorAsync(FornecedorViewModel view);

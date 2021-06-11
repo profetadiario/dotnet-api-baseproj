@@ -9,6 +9,7 @@ namespace Boilerplate.Application.ViewModel.Mappers
         public TransformationModelAnView()
         {
             CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap();
+
         }
     }
 }

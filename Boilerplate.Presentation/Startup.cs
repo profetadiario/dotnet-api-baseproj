@@ -69,7 +69,7 @@ namespace Boilerplate.Presentation
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Fornecedores}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

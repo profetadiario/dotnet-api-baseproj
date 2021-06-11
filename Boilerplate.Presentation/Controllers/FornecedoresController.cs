@@ -27,12 +27,12 @@ namespace Boilerplate.Presentation.Controllers
         }
 
         // GET: Fornecedores/Details/5
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> GetFornecedorDetails(FornecedorViewModel fornecedorViewModel)
         {
-            if (id == null)
+            if (fornecedorViewModel == null)
                 return NotFound();
 
-            var fornecedorViewModel = await _service.GetFornecedorByIdAsync(id);
+            await _service.GetFornecedorByIdAsync(fornecedorViewModel);
 
             if (fornecedorViewModel == null)
                 return NotFound();
@@ -51,7 +51,7 @@ namespace Boilerplate.Presentation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] FornecedorViewModel fornecedorViewModel)
+        public async Task<IActionResult> CreateFornecedor([Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] FornecedorViewModel fornecedorViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -79,45 +79,45 @@ namespace Boilerplate.Presentation.Controllers
         // POST: Fornecedores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] FornecedorViewModel fornecedorViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _service.UpdateViewModel(fornecedorViewModel);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FornecedorExists(fornecedorViewModel.Id))
-                        return NotFound();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> UpdateFornecedor(Guid id, [Bind("Nome,Vertical,Link,MantemHistorico,Logo,Id")] FornecedorViewModel fornecedorViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            await _service.UpdateViewModel(fornecedorViewModel);
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!FornecedorExists(fornecedorViewModel.Id))
+        //                return NotFound();
 
-                    throw;
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(fornecedorViewModel);
-        }
+        //            throw;
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(fornecedorViewModel);
+        //}
 
         // GET: Fornecedores/Delete/5
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            if (id == null)
-                return NotFound();
+        //public async Task<IActionResult> DeleteFornecedor(Guid id)
+        //{
+        //    if (id == null)
+        //        return NotFound();
 
-            var fornecedor = await _service.GetFornecedorByIdAsync(id);
+        //    var fornecedor = await _service.GetFornecedorByIdAsync(id);
 
-            await _service.DeleteViewModel(fornecedor);
+        //    await _service.DeleteViewModel(fornecedor);
 
-            if (fornecedor == null)
-            {
-                return NotFound();
-            }
+        //    if (fornecedor == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(fornecedor);
-        }
+        //    return View(fornecedor);
+        //}
 
         // POST: Fornecedores/Delete/5
         //[HttpPost, ActionName("Delete")]
@@ -130,11 +130,11 @@ namespace Boilerplate.Presentation.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        private bool FornecedorExists(Guid id)
-        {
-            var result = _service.GetFornecedorByIdAsync(id);
+        //private bool FornecedorExists(Guid id)
+        //{
+        //    var result = _service.GetFornecedorByIdAsync(id);
 
-            return result == null ? false : true;
-        }
+        //    return result == null ? false : true;
+        //}
     }
 }
