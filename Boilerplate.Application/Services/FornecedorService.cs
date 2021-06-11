@@ -26,9 +26,9 @@ namespace Boilerplate.Application.Services
             return _mapper.Map<IEnumerable<FornecedorViewModel>>(await _repository.FilterAsync());
         }
 
-        public async Task<FornecedorViewModel> GetFornecedorByIdAsync(FornecedorViewModel fornecedorViewModel)
+        public async Task<FornecedorViewModel> GetFornecedorByIdAsync(Guid id)
         {
-            var view = _mapper.Map<FornecedorViewModel>(await _repository.FilterAsync(x => x.Id == fornecedorViewModel.Id));
+            var view = _mapper.Map<FornecedorViewModel>(await _repository.FilterAsync(x => x.Id == id));
             return view;
         }
 
